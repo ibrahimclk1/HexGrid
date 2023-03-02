@@ -11,6 +11,7 @@ HexM_cond.time = {};
 HexM_cond.post=[];
 HexM_cond.stimOn=[];
 HexM_cond.reactiontime = [];
+HexM_cond.conditions = conditions(HexM);
 
 HexM_noise = struct;
 HexM_noise.trial = {};
@@ -18,6 +19,7 @@ HexM_noise.time={};
 HexM_noise.post=[];
 HexM_noise.stimOn=[];
 HexM_noise.reactiontime = [];
+HexM_noise.conditions = conditions(HexNoise);
 
 
 Hex_imag = struct;
@@ -26,6 +28,7 @@ Hex_imag.time={};
 Hex_imag.post=[];
 Hex_imag.stimOn=[];
 Hex_imag.reactiontime = [];
+Hex_imag.conditions = conditions(ima);
 
 for i = 1:length(HexM) % Scaling as well
     HexM_cond.trial(1,end+1) = eyes(HexM(i));

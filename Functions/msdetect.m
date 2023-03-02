@@ -126,7 +126,7 @@ if ( nsac>0 )
         sac(s,6:7) = [dX,dY]; %Amplitude of X and Y
         sac(s,8) = sqrt(dX.^2 + dY.^2); % Saccade Amplitude
         %saccade visual angle
-        sac(s,10) = atan2(dY,dX);
+        sac(s,10) = atan2(dy,dx);
         sac(s,9) = rad2deg(atan2(dY,dX));
     end
 end

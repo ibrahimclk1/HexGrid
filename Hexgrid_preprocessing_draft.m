@@ -45,7 +45,7 @@ if length(data.timeFirstSample) > 1; firstsamp = data.timeFirstSample(1); else; 
 % find trial onsets and offsets
 trial_start_indicies = find(ismember(markers.text,num2str(trig.trial_info_start)));
 trial_end_indicies   = find(contains(markers.text,num2str(trig.trial_end)));
-
+%%
 
        for itrial = 1:length(trial_start_indicies)
             markersTrial      = markers.text(trial_start_indicies(itrial):trial_end_indicies(itrial));

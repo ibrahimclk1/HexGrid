@@ -5,16 +5,28 @@
 %Screen Resolution
 %Screen Dimensions
 %Eye to Screen Distance
-addpath('/mnt/pns/home/celiki/Documents/Projects/Hexgrid/hexImgA/images')
-uiopen('C:\Work\hexgrid\hexImgA\images\0001.TIF',1)
+addpath('/mnt/pns/home/celiki/Documents/Projects/Hexgrid/hexImgA/images');
+image_folder = '/mnt/pns/home/celiki/Documents/Projects/Hexgrid/hexImgA/images/';
+trial_num = 4;
+
+
+condition = Hex_imag.conditions(trial_num)-16;
+if condition < 10
+    condition = [' 0' num2str(condition)];
+end
+condition = strtrim(condition)
+uiopen([image_folder ['00', num2str(condition), '.TIF']],1);
+
+
 %%
-dat = thisPar.trial{1,2}(1:2,:);
-%%
-dat = eyes{1,2}(1:2,:);
-[scaled_x scaled_y] =  scale_eye_tracking_values(dat(1,:), dat_y(1,:));
+%dat = eyes{1,2}(1:2,:);
+dat = Hex_imag.trial{1,trial_num}(1:2,:);
+x = dat(1,:);
+y = dat(2,:);
+%[scaled_x scaled_y] =  scale_eye_tracking_values(dat(1,:), dat_y(1,:));
 figure;
-image(556/2,199/2,x0001,'AlphaData',0.5) %1334(width) pixels x 1001(height)# (1900-1334)/2, (1200-1001)/2
 axis xy
+image(556/2,199/2,x0008,'AlphaData',0.5) %1334(width) pixels x 1001(height)# (1900-1334)/2, (1200-1001)/2
 title('Scanpath')
 %xlim([-1920/2 1920/2])
 %ylim([-1200/2 1200/2])
@@ -23,7 +35,7 @@ ylim([0 1200])
 
 
 hold on;
-plot(scaled_x,scaled_y,'lineWidth',1)
+plot(x,y,'lineWidth',1)
 
 %%
 pos_x = dat(1,:); %Extract the horizantal eye movement

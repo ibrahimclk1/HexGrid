@@ -21,7 +21,7 @@ id=5;
 sprintf("Preprocessing participant %i",id)
 %%thisParticipant = strcat(datapath,sprintf('P%s',num2str(id,'%03.f')));
 
-thisParticipant = strcat(datapath,'/','Session_1');
+thisParticipant = strcat(datapath,'/','Session_2');
 
 files = dir(fullfile(thisParticipant,'*hexImgA_*')); % find folders that contain the data exluding the training data
 
@@ -31,12 +31,8 @@ pupilsize = {};
 post = [];
 stimOn = [];
 conditions = [];
-
-correct_trial_number = [];
-false_trial_number = [];
-cnt=1;
-
-for k=1:length(files) %session 1
+%%
+for k=1:length(files); %session 1
 
     baseFileName = files(k).name;
     fullFileName = fullfile(thisParticipant, baseFileName);
@@ -68,9 +64,7 @@ for k=1:length(files) %session 1
         
         % reward sample is the last point in the trial
         reward_sample = markersTrial_time(find(ismember(markersTrial,num2str(trig.reward))));
-        if length(reward_sample) == 0; false_trial_number(k,cnt) = itrial; cnt=cnt+1; continue; end
-        
-        correct_trial_number(k,end+1) = itrial;
+        if length(reward_sample) == 0; continue; end
         
         start_trial_sample = (holdFix_time-firstsamp)/2;
         if length(start_trial_sample) > 1; start_trial_sample = start_trial_sample(1); end
@@ -122,7 +116,7 @@ for k=1:length(files) %session 1
      data.delete;
 end
 
-%%
+
 % Make the channel numbers consistent across trials
 for i=1:size(trials,2);
   if size(trials{1,i},1) < 4
@@ -132,7 +126,7 @@ for i=1:size(trials,2);
 end
   
       
- %%    
+     
     
     % Make a fieldtrip strucutre out of it and resample eyetraces to 1kHz
     thisPar = [];
@@ -143,7 +137,7 @@ end
     end  
     thisPar.label = {'l_x','l_y','r_x','r_y'};
     thisPar.trial = trials;
-    %%
+    
     subplot(211)
     plot(thisPar.trial{60}'); ylim([-1000 1000])
 
@@ -160,4 +154,4 @@ end
     subplot(212)
     plot(thisPar.trial{60}'); ylim([-1000 1000])
     
-     save(fullfile(thisParticipant,["P"+num2str(id,'%03.f')]),'time','eyes','post','stimOn','conditions','pupilsize', 'false_trial_number');   
+     save(fullfile(thisParticipant,["P"+num2str(id,'%03.f')]),'time','eyes','post','stimOn','conditions','pupilsize');   
